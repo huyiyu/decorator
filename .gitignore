@@ -1,0 +1,33 @@
+# Hugo
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+.hugo_build.lock
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

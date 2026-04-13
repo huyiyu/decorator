@@ -1,0 +1,50 @@
+{
+    "name": "dark-theme-editor",
+    "version": "3.3.1",
+    "description": "[![Example Site](https://github.com/JingWangTW/dark-theme-editor/actions/workflows/hugo.yml/badge.svg)](https://github.com/JingWangTW/dark-theme-editor/actions/workflows/hugo.yml)",
+    "main": "index.js",
+    "scripts": {
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write .",
+        "lint": "eslint . --ext .js,.json --quiet",
+        "lint:fix": "eslint . --ext .js,.json --fix",
+        "precommit": "lint-staged",
+        "commit": "git-cz"
+    },
+    "author": "Jing Wang",
+    "license": "Apache 2.0",
+    "devDependencies": {
+        "@eslint/eslintrc": "^3.3.3",
+        "@eslint/js": "^10.0.1",
+        "@eslint/json": "^1.0.1",
+        "commitlint": "^17.5.0",
+        "eslint": "^10.0.0",
+        "git-cz": "^4.9.0",
+        "globals": "^17.3.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^16.2.0",
+        "prettier": "^2.8.5",
+        "prettier-plugin-go-template": "^0.0.13"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,json}": [
+            "prettier --write",
+            "eslint --fix",
+            "eslint"
+        ],
+        "*.{css,html}": [
+            "prettier --write"
+        ]
+    },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ]
+    }
+}

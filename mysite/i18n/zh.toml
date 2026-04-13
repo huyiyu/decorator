@@ -1,0 +1,21 @@
+recent_posts = '最新记录'
+walkthroughs = '目录导航'
+author = '作者'
+date = '日期'
+time_to_read = '阅读时间'
+empty_page = '本页暂无内容。'
+all_about = '所有关于'
+language = '语言'
+breadcrumb_home = '首页'
+
+[category]
+    one = '分类'
+    other = '分类'
+
+[tag]
+    one = '标签'
+    other = '标签'
+
+[min_to_read]
+    one = '{{ . }} 分钟阅读'
+    other = '{{ . }} 分钟阅读'
