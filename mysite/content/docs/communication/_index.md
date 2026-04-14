@@ -1,5 +1,5 @@
 +++
-title = "沟通记录"
+title = "沟通"
 weight = 4
 +++
 

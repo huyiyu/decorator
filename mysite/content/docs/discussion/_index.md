@@ -1,5 +1,5 @@
 +++
-title = "装修讨论"
+title = "灵感"
 weight = 1
 +++
 

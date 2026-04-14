@@ -10,7 +10,7 @@ hero:
     url: "/docs/"
   cta2Button:
     icon: construction
-    btnText: "装修进度"
+    btnText: "施工"
     url: "/docs/construction/"
   info: ""
 
@@ -21,15 +21,15 @@ featureGrid:
   title: 记录内容
   subtitle: 这里按照装修的不同阶段整理了大量笔记与备忘，方便随时查阅。
   items:
-    - title: 沟通记录
+    - title: 沟通
       icon: forum
       description: 与设计师、工长、供应商的会谈要点与备忘。
-    - title: 设计迭代
+    - title: 设计
       icon: draw
       description: 从第一稿到定稿，记录设计方案的演变与取舍。
-    - title: 施工进度
+    - title: 施工
       icon: carpenter
       description: 施工节点、材料进场、验收事项的跟踪记录。
-    - title: 灵感头脑风暴
+    - title: 灵感
       icon: lightbulb
       description: 随时迸发的装修灵感、参考案例与想法整理。
