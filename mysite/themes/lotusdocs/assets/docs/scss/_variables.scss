@@ -240,7 +240,7 @@ $btn-link-hover-color:        var(--#{$prefix}link-hover-color);
 
     --body-color: var(--text-default);
 
-    --body-bg: var(--white);
+    --body-bg: #faf8f3;
 
     // Text
     --text-dark: #3C4257;
@@ -267,7 +267,7 @@ $btn-link-hover-color:        var(--#{$prefix}link-hover-color);
 
     // Footer
     --footer: #202942;
-    --footer-bg: var(--white);
+    --footer-bg: #faf8f3;
     --foot-social-color: #adb5bd;
     --social-border-color: #adb5bd;
     --foot-social-color-white: var(--white);
@@ -298,19 +298,19 @@ $btn-link-hover-color:        var(--#{$prefix}link-hover-color);
     --dir-right: "\e5da";
 
     // Cards
-    --card-bg: var(--white);
+    --card-bg: #f7f5ef;
     --card-border-color: var(--gray-400);
     --card-border-hover-color: var(--primary);
 
     // Sidebar
     --sidebar-primary: var(--primary);
-    --sidebar-bg: var(--white);
-    --top-header-bg: hsla(255,100%,100%,0.8);
+    --sidebar-bg: #faf8f3;
+    --top-header-bg: hsla(40, 33%, 97%, 0.8);
     --sidebar-text-color: #606770;
     --sidebar-border-color: var(--gray-200);
-    --sidebar-dropdown-hover-bg: #eff1f4;
-    --sidebar-menu-active-bg: #f5f6f8;
-    --sidebar-icon-bg: #f8f9fa;
+    --sidebar-dropdown-hover-bg: #f0ece3;
+    --sidebar-menu-active-bg: #f5f2eb;
+    --sidebar-icon-bg: #f5f2eb;
     --sidebar-light-icon: #f8f9fa;
     --sidebar-scrollbar-thumb-color: var(--gray-200);
 
