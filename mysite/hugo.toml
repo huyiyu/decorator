@@ -1,84 +1,71 @@
-baseURL = "/"
-theme = "dark-theme-editor"
+baseURL = '/'
+languageCode = 'zh-CN'
+defaultContentLanguage = 'zh'
+enableEmoji = true
+enableGitInfo = true
 
-# 语言设置
-defaultContentLanguage = "zh"
-languageCode = "zh-CN"
+theme = "lotusdocs"
+
+[languages]
+  [languages.zh]
+    title = "装修手记"
+    languageName = "中文"
+    weight = 10
 
 [module]
-    [module.hugoVersion]
-        min = "0.151.0"
+  [module.hugoVersion]
+    extended = true
+    min = "0.140.0"
+  [[module.imports]]
+    path = "github.com/gohugoio/hugo-mod-bootstrap-scss/v5"
+    disable = false
 
-[taxonomies]
-    tag = "tags"
-    category = "categories"
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.tableOfContents]
+    endLevel = 3
+    startLevel = 1
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [params]
-    [params.site]
-        localCss = []
-        externalCss = []
-        externalCssDownload = []
-        localJs = []
-        externalJs = []
-        externalJsDownload = []
-        faviconUrl = ""
-        googleVerification = ""
-        bingVerifivation = ""
+  google_fonts = [
+    ["Inter", "300, 400, 600, 700"],
+    ["Fira Code", "500, 700"]
+  ]
 
-    [params.header]
-        title = "装修手记"
-        subtitle = "记录一个家的诞生过程"
+  sans_serif_font = "Inter"
+  secondary_font  = "Inter"
+  mono_font       = "Fira Code"
 
-        [params.header.logo]
-            imgUrl = ""
-            logoLink = ""
+  [params.footer]
+    copyright = "© :YEAR: 装修手记"
 
-    [params.footer]
-        copyrightStr = "版权所有 ®"
-        counter = true
-        language = false
-        hugoVersion = false
-        theme = false
-        modifiedTime = true
-        dateFormat = "2006年01月02日 15:04:05"
-        gitHash = false
+  [params.social]
+    github = ""
+    twitter = ""
 
-        [params.footer.socialLink]
-            github = ""
-            facebook = ""
-            twitter = ""
-            email = ""
-            linkedin = ""
-            instagram = ""
-            telegram = ""
-            medium = ""
-            vimeo = ""
-            youtube = ""
+  [params.docs]
+    title = "装修手记"
+    darkMode = true
+    prism = true
+    prismTheme = "lotusdocs"
+    sidebarIcons = true
+    breadcrumbs = true
+    backToTop = true
+    toc = true
+    tocMobile = true
+    scrollSpy = true
+    descriptions = true
+    titleIcon = true
 
-    [params.globalFrontmatter]
-        author = "屋主"
-        description = "记录装修过程中的沟通、设计、进度与灵感"
-        keywords = "装修,家装,设计,施工,日记"
+  [params.flexsearch]
+    enabled = true
 
-    [params.homePage]
-        siteLongDescription = "这里记录了一次完整装修旅程中的点滴：与设计师和工长的沟通记录、设计方案的反复迭代、施工进度的实时把控，以及随时迸发的灵感头脑风暴。"
-        siteLongDescriptionTitle = "关于本站"
-        showRecentPostsBlock = true
-        numOfRecentPosts = 6
-        recentPostShowUrl = false
-
-    [params.page]
-        includeToc = true
-        showAuthor = true
-        showDate = true
-        dateFormat = "2006年01月02日"
-        showTimeToRead = true
-        showBreadcrumb = true
-        codeBlockCopible = true
-        useMath = false
-        trustedmath = false
-
-    [params.preference]
-        showFileName = false
-        sortBy = "weight"
-        sortInAsc = false
+[menu]
+[[menu.primary]]
+    name  = "装修日志"
+    url = "/"
+    identifier = "home"
+    weight = 10
