@@ -4,6 +4,11 @@ hero:
   template: hero
   title: "装修手记"
   subtitle: 记录一个家的诞生过程——从沟通、设计到施工的每一步。
+  backgroundImage:
+    path: "images/templates/hero"
+    filename:
+      desktop: "bg.jpg"
+      mobile: "bg.jpg"
   ctaButton:
     icon: book
     btnText: "开始阅读"
