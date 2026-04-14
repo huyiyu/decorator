@@ -8,10 +8,6 @@ hero:
     icon: book
     btnText: "开始阅读"
     url: "/docs/"
-  cta2Button:
-    icon: construction
-    btnText: "施工"
-    url: "/docs/construction/"
   info: ""
 
 featureGrid:
