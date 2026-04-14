@@ -355,7 +355,7 @@
                 backdrop-filter: saturate(180%) blur(5px);
                 height: 72px;
                 // box-shadow: $shadow;
-                border-bottom: 1px solid var(--sidebar-border-color);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
                 position: relative;
                 justify-content: space-between;
                 align-items: center;
@@ -363,6 +363,26 @@
 
                 @media (max-width: 425px) {
                     padding: 24px 12px;
+                }
+
+                .btn-soft,
+                .btn-default {
+                    color: #e8e6e1 !important;
+                    border-color: rgba(255,255,255,0.15) !important;
+                }
+
+                .material-icons,
+                .menu-icon {
+                    color: #e8e6e1;
+                }
+
+                a[rel="noopener noreferrer"] .btn-icon svg,
+                .btn-icon svg {
+                    filter: brightness(0) invert(1);
+                }
+
+                .dropdown-toggle {
+                    color: #e8e6e1;
                 }
 
                 .logo-icon {
