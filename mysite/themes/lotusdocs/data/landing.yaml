@@ -25,12 +25,24 @@ featureGrid:
     - title: 沟通
       icon: forum
       description: 与设计师、工长、供应商的会谈要点与备忘。
+      ctaLink:
+        text: 查看沟通记录
+        url: "/docs/communication/"
     - title: 设计
       icon: draw
       description: 从第一稿到定稿，记录设计方案的演变与取舍。
+      ctaLink:
+        text: 查看设计迭代
+        url: "/docs/design/"
     - title: 施工
       icon: carpenter
       description: 施工节点、材料进场、验收事项的跟踪记录。
+      ctaLink:
+        text: 查看施工进度
+        url: "/docs/construction/"
     - title: 灵感
       icon: lightbulb
       description: 随时迸发的装修灵感、参考案例与想法整理。
+      ctaLink:
+        text: 查看灵感
+        url: "/docs/discussion/"

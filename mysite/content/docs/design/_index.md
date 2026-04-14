@@ -1,5 +1,6 @@
 +++
 title = "设计"
+description = "从第一稿到定稿，记录设计方案的演变与取舍。"
 weight = 2
 +++
 

@@ -156,8 +156,9 @@
     function show_results(){
         const maxResult = {{ .Site.Params.flexsearch.maxResult | default 5}};
         const minlength = {{ .Site.Params.flexsearch.minQueryChar | default 0}};
-        var searchQuery = sanitizeHTML(this.value);
-        var results = index.search(searchQuery, {limit: maxResult, enrich: true});
+        var rawQuery = this.value;
+        var searchQuery = sanitizeHTML(rawQuery);
+        var results = index.search(rawQuery, {limit: maxResult, enrich: true});
 
         // flatten results since index.search() returns results for each indexed field
         const flatResults = new Map(); // keyed by href to dedupe results
@@ -170,7 +171,7 @@
         suggestions.classList.remove('d-none');
 
         // inform user of search query minimum character requirement
-        if (searchQuery.length < minlength) {
+        if (rawQuery.length < minlength) {
             const minCharMessage = document.createElement('div')
             minCharMessage.innerHTML = `Please type at least <strong>${minlength}</strong> characters`
             minCharMessage.classList.add("suggestion__no-results");
@@ -178,7 +179,7 @@
             return;
         } else {
             // inform user that no results were found
-            if (flatResults.size === 0 && searchQuery) {
+            if (flatResults.size === 0 && rawQuery) {
                 const noResultsMessage = document.createElement('div')
                 noResultsMessage.innerHTML = {{ i18n "search_no_results" | default "No results for" }} + ` "<strong>${searchQuery}</strong>"`
                 noResultsMessage.classList.add("suggestion__no-results");
