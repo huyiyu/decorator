@@ -1,11 +1,17 @@
 # Hugo
 /public/
+/resources/
 /resources/_gen/
 /assets/jsconfig.json
 .hugo_build.lock
 hugo.exe
 hugo.darwin
 hugo.linux
+
+# Also ignore in mysite subdir
+mysite/public/
+mysite/resources/
+mysite/assets/jsconfig.json
 
 # Node
 node_modules/
