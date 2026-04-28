@@ -100,5 +100,18 @@
                 {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/flexsearch.html") . -}}
             {{ end }}
         {{ end }}
+
+        <!-- Medium Zoom for images -->
+        <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" defer></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof mediumZoom !== 'undefined') {
+                    mediumZoom('#content img, .docs-content img', {
+                        background: 'rgba(0, 0, 0, 0.85)',
+                        margin: 24
+                    });
+                }
+            });
+        </script>
     </body>
 </html>
