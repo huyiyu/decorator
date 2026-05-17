@@ -23,17 +23,17 @@ weight = 2
 
 入户区域通过 **拱形造型玄关** 界定空间，餐边柜侧面与玄关柜相连，形成完整的收纳界面。餐厅选配 **双吊灯** 营造就餐氛围，六人餐桌满足日常与聚会需求。
 
-<img src="餐厅-客厅视角-右.png" alt="入户玄关" style="max-width: 100%; border-radius: 6px;">
+<img src="餐厅-客厅视角-右.png" alt="客厅过道转角" style="max-width: 100%; border-radius: 6px;">
 
-> 入户视角——拱形造型+餐边柜侧面，玄关与餐厅自然过渡。
+> 客厅过道转角——从玄关转入客厅的视觉过渡。
 
 <img src="餐厅-入户视角.png" alt="餐厅正面" style="max-width: 100%; border-radius: 6px;">
 
 > 餐厅正面——餐桌居中，双吊灯垂落，餐边柜提供充足收纳与展示空间。
 
-<img src="阳台-客厅连接点.png" alt="圆孔造型柜" style="max-width: 70%; border-radius: 6px; display: block; margin: 0 auto;">
+<img src="阳台-客厅连接点.png" alt="电视背景墙连接阳台过渡" style="max-width: 70%; border-radius: 6px; display: block; margin: 0 auto;">
 
-> 餐边柜圆孔细节——竖构图呈现圆孔造型柜的精致比例，透景设计让空间更有层次。
+> 电视背景墙连接阳台过渡——竖构图呈现圆孔造型柜的精致比例，透景设计让空间更有层次。
 
 <img src="餐厨-客厅视角-左.png" alt="左侧餐边柜" style="max-width: 100%; border-radius: 6px;">
 
@@ -57,9 +57,9 @@ weight = 2
 
 > 阅读角——沙发背面、书架与落地窗围合出安静的阅读空间。
 
-<img src="主卧-餐厅视角.png" alt="反向视角" style="max-width: 100%; border-radius: 6px;">
+<img src="主卧-餐厅视角.png" alt="从餐厅斜45°看客厅电视柜" style="max-width: 100%; border-radius: 6px;">
 
-> 从主卧方向看客厅/餐厅——反向视角验证空间尺度的合理性。
+> 从餐厅斜45°看客厅电视柜——斜向视角验证空间尺度与动线关系。
 
 <img src="客厅-南偏东视角.png" alt="电视墙侧面" style="max-width: 100%; border-radius: 6px;">
 
