@@ -1,0 +1,8 @@
+// medium-zoom z-index override to ensure overlay sits above top-header (999) and sidebar (1000)
+.medium-zoom-overlay {
+    z-index: 1001 !important;
+}
+
+.medium-zoom-image--opened {
+    z-index: 1002 !important;
+}
