@@ -68,11 +68,6 @@
     pointer-events: auto;
 }
 
-// Fast transition for gallery image switching
-.medium-zoom-image {
-    transition-duration: 150ms !important;
-}
-
 // Hide buttons on mobile, rely on swipe
 @media (max-width: 768px) {
     .gallery-nav-btn {
