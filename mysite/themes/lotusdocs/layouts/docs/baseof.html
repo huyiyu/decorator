@@ -101,8 +101,7 @@
             {{ end }}
         {{ end }}
 
-        <!-- Medium Zoom for images -->
-        <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" defer></script>
+        <!-- Gallery Lightbox -->
         {{- $galleryZoom := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/gallery-zoom.js") | js.Build | minify -}}
         <script src="{{ $galleryZoom.RelPermalink }}" defer></script>
     </body>

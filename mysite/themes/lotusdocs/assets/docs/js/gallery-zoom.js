@@ -2,152 +2,186 @@
   'use strict';
 
   const IMAGE_SELECTOR = '#content img, .docs-content img';
-  const NAV_CLASS = 'gallery-nav';
-  const BTN_CLASS = 'gallery-nav-btn';
-  const PREV_CLASS = 'gallery-nav-prev';
-  const NEXT_CLASS = 'gallery-nav-next';
-  const COUNTER_CLASS = 'gallery-nav-counter';
+  const ACTIVE_CLASS = 'gallery-lightbox--active';
   const DISABLED_CLASS = 'is-disabled';
 
-  let zoom = null;
   let images = [];
   let currentIndex = -1;
+  let lightbox = null;
   let isTransitioning = false;
-  let navEl = null;
+  let isOpen = false;
+  let openScrollY = 0;
   let touchStartX = 0;
   let touchStartY = 0;
   let touchCurrentX = 0;
   let isSwiping = false;
   const SWIPE_THRESHOLD = 50;
+  const SCROLL_CLOSE_THRESHOLD = 40;
 
   function collectImages() {
     images = Array.from(document.querySelectorAll(IMAGE_SELECTOR)).filter(img => {
-      return img.closest('a') === null;
+      return img.closest('a') === null && !img.closest('.gallery-lightbox');
     });
   }
 
-  function createNavUI() {
+  function createLightbox() {
     const el = document.createElement('div');
-    el.className = NAV_CLASS;
+    el.className = 'gallery-lightbox';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-modal', 'true');
     el.innerHTML = `
-      <button class="${BTN_CLASS} ${PREV_CLASS}" aria-label="上一张" type="button">‹</button>
-      <button class="${BTN_CLASS} ${NEXT_CLASS}" aria-label="下一张" type="button">›</button>
-      <div class="${COUNTER_CLASS}" aria-live="polite"></div>
+      <div class="gallery-lightbox__backdrop"></div>
+      <div class="gallery-lightbox__container">
+        <img class="gallery-lightbox__img" src="" alt="" />
+      </div>
+      <button class="gallery-lightbox__btn gallery-lightbox__prev" aria-label="上一张" type="button">‹</button>
+      <button class="gallery-lightbox__btn gallery-lightbox__next" aria-label="下一张" type="button">›</button>
+      <div class="gallery-lightbox__counter"></div>
     `;
 
-    el.querySelector(`.${PREV_CLASS}`).addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
-    el.querySelector(`.${NEXT_CLASS}`).addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+    el.querySelector('.gallery-lightbox__backdrop').addEventListener('click', close);
+    el.querySelector('.gallery-lightbox__img').addEventListener('click', close);
+    el.querySelector('.gallery-lightbox__prev').addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+    el.querySelector('.gallery-lightbox__next').addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
 
     document.body.appendChild(el);
     return el;
   }
 
-  function updateNavUI() {
-    if (!navEl) return;
-    const prevBtn = navEl.querySelector(`.${PREV_CLASS}`);
-    const nextBtn = navEl.querySelector(`.${NEXT_CLASS}`);
-    const counter = navEl.querySelector(`.${COUNTER_CLASS}`);
+  function open(index) {
+    if (isTransitioning || isOpen) return;
+    if (index < 0 || index >= images.length) return;
+
+    currentIndex = index;
+    if (!lightbox) lightbox = createLightbox();
+
+    const img = lightbox.querySelector('.gallery-lightbox__img');
+    const original = images[index];
+    img.src = original.currentSrc || original.src;
+    img.alt = original.alt || '';
+    img.style.transition = '';
+    img.style.transform = '';
+    img.style.visibility = '';
+
+    lightbox.classList.add(ACTIVE_CLASS);
+    isOpen = true;
+    updateUI();
+    preloadAdjacent();
+    bindEvents();
+    openScrollY = window.scrollY || window.pageYOffset || 0;
+  }
+
+  function close() {
+    if (!lightbox || !isOpen) return;
+    lightbox.classList.remove(ACTIVE_CLASS);
+    isOpen = false;
+    isTransitioning = false;
+    unbindEvents();
+    currentIndex = -1;
+  }
+
+  function navigate(direction) {
+    if (isTransitioning) return;
+    const target = currentIndex + direction;
+    if (target < 0 || target >= images.length) return;
+
+    isTransitioning = true;
+    const img = lightbox.querySelector('.gallery-lightbox__img');
+
+    // 1. 当前图片滑出
+    const exitX = direction > 0 ? '-100%' : '100%';
+    img.style.transition = 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1)';
+    img.style.transform = `translateX(${exitX})`;
+
+    const cleanupExit = () => {
+      img.removeEventListener('transitionend', onExitEnd);
+      clearTimeout(exitTimeout);
+    };
+
+    const onExitEnd = () => {
+      cleanupExit();
+
+      currentIndex = target;
+      const newSrc = images[currentIndex].currentSrc || images[currentIndex].src;
+      const newAlt = images[currentIndex].alt || '';
+
+      // 2. 隐藏并瞬间 reposition 到另一侧
+      img.style.visibility = 'hidden';
+      img.style.transition = 'none';
+      const enterX = direction > 0 ? '100%' : '-100%';
+      img.style.transform = `translateX(${enterX})`;
+
+      if (img.src !== newSrc) {
+        img.src = newSrc;
+        img.alt = newAlt;
+      }
+
+      img.offsetHeight; // force reflow
+
+      // 3. 显示并开始滑入
+      img.style.visibility = 'visible';
+      img.style.transition = 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1)';
+      requestAnimationFrame(() => {
+        img.style.transform = 'translateX(0)';
+      });
+
+      const cleanupEnter = () => {
+        img.removeEventListener('transitionend', onEnterEnd);
+        clearTimeout(enterTimeout);
+      };
+
+      const onEnterEnd = () => {
+        cleanupEnter();
+        img.style.transition = '';
+        img.style.transform = '';
+        updateUI();
+        preloadAdjacent();
+        isTransitioning = false;
+      };
+
+      img.addEventListener('transitionend', onEnterEnd);
+      const enterTimeout = setTimeout(() => {
+        cleanupEnter();
+        img.style.transition = '';
+        img.style.transform = '';
+        updateUI();
+        preloadAdjacent();
+        isTransitioning = false;
+      }, 200);
+    };
+
+    img.addEventListener('transitionend', onExitEnd);
+    const exitTimeout = setTimeout(() => {
+      cleanupExit();
+      onExitEnd();
+    }, 200);
+  }
+
+  function updateUI() {
+    if (!lightbox) return;
+    const prevBtn = lightbox.querySelector('.gallery-lightbox__prev');
+    const nextBtn = lightbox.querySelector('.gallery-lightbox__next');
+    const counter = lightbox.querySelector('.gallery-lightbox__counter');
 
     prevBtn.classList.toggle(DISABLED_CLASS, currentIndex <= 0);
     nextBtn.classList.toggle(DISABLED_CLASS, currentIndex >= images.length - 1);
     counter.textContent = `${currentIndex + 1} / ${images.length}`;
   }
 
-  function removeNavUI() {
-    if (navEl) {
-      navEl.remove();
-      navEl = null;
-    }
-  }
-
-  function computeZoomedStyle(img) {
-    const margin = 24;
-    const viewportW = window.innerWidth - margin * 2;
-    const viewportH = window.innerHeight - margin * 2;
-    const scale = Math.min(viewportW / img.naturalWidth, viewportH / img.naturalHeight, 1);
-    const width = img.naturalWidth * scale;
-    const height = img.naturalHeight * scale;
-    return {
-      left: (window.innerWidth - width) / 2,
-      top: (window.innerHeight - height) / 2,
-      width,
-      height,
+  function preloadAdjacent() {
+    if (currentIndex < 0) return;
+    const preload = (idx) => {
+      if (idx < 0 || idx >= images.length) return;
+      const src = images[idx].currentSrc || images[idx].src;
+      const img = new Image();
+      img.src = src;
     };
-  }
-
-  function navigate(direction) {
-    if (isTransitioning) return;
-    const targetIndex = currentIndex + direction;
-    if (targetIndex < 0 || targetIndex >= images.length) return;
-
-    isTransitioning = true;
-
-    const currentZoomed = document.querySelector('.medium-zoom-image--opened');
-    const nextOriginal = images[targetIndex];
-
-    const preload = new Image();
-    preload.src = nextOriginal.currentSrc || nextOriginal.src;
-
-    const timeout = setTimeout(() => {
-      isTransitioning = false;
-    }, 5000);
-
-    preload.onload = () => {
-      clearTimeout(timeout);
-      const style = computeZoomedStyle(preload);
-
-      const newZoomed = document.createElement('img');
-      newZoomed.className = 'gallery-slide-image medium-zoom-image--opened';
-      newZoomed.src = preload.src;
-      newZoomed.style.cssText = `
-        position: fixed;
-        z-index: 1002;
-        top: ${style.top}px;
-        left: ${style.left}px;
-        width: ${style.width}px;
-        height: ${style.height}px;
-        transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
-      `;
-
-      const enterX = direction > 0 ? window.innerWidth : -window.innerWidth;
-      newZoomed.style.transform = `translateX(${enterX}px)`;
-      document.body.appendChild(newZoomed);
-
-      if (currentZoomed) {
-        currentZoomed.style.transition = 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)';
-        const leaveX = direction > 0 ? -window.innerWidth : window.innerWidth;
-        currentZoomed.style.transform = `translateX(${leaveX}px)`;
-      }
-
-      newZoomed.offsetHeight;
-      requestAnimationFrame(() => {
-        newZoomed.style.transform = 'translateX(0)';
-      });
-
-      setTimeout(() => {
-        if (currentZoomed) {
-          currentZoomed.classList.add('gallery-slide-hidden');
-          currentZoomed.style.visibility = 'hidden';
-        }
-
-        newZoomed.addEventListener('click', () => {
-          zoom.close();
-        });
-
-        currentIndex = targetIndex;
-        updateNavUI();
-        isTransitioning = false;
-      }, 300);
-    };
-
-    preload.onerror = () => {
-      clearTimeout(timeout);
-      isTransitioning = false;
-    };
+    preload(currentIndex - 1);
+    preload(currentIndex + 1);
   }
 
   function onKeyDown(e) {
+    if (!isOpen) return;
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       navigate(-1);
@@ -155,11 +189,13 @@
       e.preventDefault();
       navigate(1);
     } else if (e.key === 'Escape') {
-      zoom.close();
+      e.preventDefault();
+      close();
     }
   }
 
   function onTouchStart(e) {
+    if (!isOpen) return;
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
     touchCurrentX = touchStartX;
@@ -167,20 +203,23 @@
   }
 
   function onTouchMove(e) {
+    if (!isOpen) return;
     touchCurrentX = e.changedTouches[0].screenX;
     const diffX = Math.abs(touchCurrentX - touchStartX);
     const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
 
     if (diffX > diffY && diffX > 10) {
       isSwiping = true;
-      e.preventDefault();
     }
   }
 
   function onTouchEnd(e) {
-    if (!isSwiping) return;
+    if (!isOpen || !isSwiping) return;
     const diff = touchStartX - touchCurrentX;
-    if (Math.abs(diff) < SWIPE_THRESHOLD) return;
+    if (Math.abs(diff) < SWIPE_THRESHOLD) {
+      isSwiping = false;
+      return;
+    }
     if (diff > 0) {
       navigate(1);
     } else {
@@ -189,11 +228,20 @@
     isSwiping = false;
   }
 
+  function onScroll() {
+    if (!isOpen) return;
+    const currentY = window.scrollY || window.pageYOffset || 0;
+    if (Math.abs(currentY - openScrollY) > SCROLL_CLOSE_THRESHOLD) {
+      close();
+    }
+  }
+
   function bindEvents() {
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('touchstart', onTouchStart, { passive: true });
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
     document.addEventListener('touchend', onTouchEnd, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true });
   }
 
   function unbindEvents() {
@@ -201,40 +249,33 @@
     document.removeEventListener('touchstart', onTouchStart);
     document.removeEventListener('touchmove', onTouchMove);
     document.removeEventListener('touchend', onTouchEnd);
+    document.removeEventListener('scroll', onScroll);
+  }
+
+  function bindImageClicks() {
+    images.forEach((img, i) => {
+      if (img._galleryBound) return;
+      img._galleryBound = true;
+      img.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(i);
+      });
+      img.style.cursor = 'zoom-in';
+    });
   }
 
   function init() {
-    if (typeof mediumZoom === 'undefined') {
-      console.warn('[gallery-zoom] mediumZoom not found');
-      return;
-    }
-
     collectImages();
+    bindImageClicks();
 
-    zoom = mediumZoom(IMAGE_SELECTOR, {
-      background: 'rgba(0, 0, 0, 0.85)',
-      margin: 24,
-    });
-
-    zoom.on('open', (event) => {
-      currentIndex = images.indexOf(event.target);
-      if (images.length > 1) {
-        navEl = createNavUI();
-        updateNavUI();
-        bindEvents();
+    const observer = new MutationObserver(() => {
+      const before = images.length;
+      collectImages();
+      if (images.length !== before) {
+        bindImageClicks();
       }
     });
-
-    zoom.on('shown', (event) => {
-      currentIndex = images.indexOf(event.target);
-      updateNavUI();
-    });
-
-    zoom.on('close', () => {
-      document.querySelectorAll('.gallery-slide-image, .gallery-slide-hidden').forEach(el => el.remove());
-      removeNavUI();
-      unbindEvents();
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   if (document.readyState === 'loading') {
