@@ -35,8 +35,8 @@
       <div class="${COUNTER_CLASS}" aria-live="polite"></div>
     `;
 
-    el.querySelector(`.${PREV_CLASS}`).addEventListener('click', () => navigate(-1));
-    el.querySelector(`.${NEXT_CLASS}`).addEventListener('click', () => navigate(1));
+    el.querySelector(`.${PREV_CLASS}`).addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+    el.querySelector(`.${NEXT_CLASS}`).addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
 
     document.body.appendChild(el);
     return el;
@@ -67,16 +67,13 @@
 
     isTransitioning = true;
 
-    // 快速关闭当前，打开目标
-    zoom.close();
-
-    setTimeout(() => {
+    // 关闭当前后打开目标，避免和 medium-zoom 点击事件冲突
+    zoom.close().then(() => {
       zoom.open({ target: images[targetIndex] });
-      // currentIndex 会在 'shown' 事件中更新
       setTimeout(() => {
         isTransitioning = false;
       }, TRANSITION_LOCK_DURATION);
-    }, 50);
+    });
   }
 
   function onKeyDown(e) {
