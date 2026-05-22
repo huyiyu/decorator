@@ -71,7 +71,7 @@
     zoom.close();
 
     setTimeout(() => {
-      zoom.show({ target: images[targetIndex] });
+      zoom.open({ target: images[targetIndex] });
       // currentIndex 会在 'shown' 事件中更新
       setTimeout(() => {
         isTransitioning = false;
