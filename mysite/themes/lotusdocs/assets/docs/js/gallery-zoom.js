@@ -75,6 +75,37 @@
     };
   }
 
+  // 完全自定义关闭，不依赖 medium-zoom 的 close()（避免其内部状态混乱）
+  function customClose() {
+    const overlay = document.querySelector('.medium-zoom-overlay');
+    const allZoomed = document.querySelectorAll('.medium-zoom-image--opened, .gallery-slide-image');
+
+    if (overlay) {
+      overlay.style.transition = 'opacity 200ms ease';
+      overlay.style.opacity = '0';
+    }
+    allZoomed.forEach(el => {
+      el.style.transition = 'opacity 200ms ease, transform 200ms ease';
+      el.style.opacity = '0';
+      el.style.transform = 'scale(0.95)';
+    });
+
+    setTimeout(() => {
+      if (overlay) overlay.remove();
+      allZoomed.forEach(el => el.remove());
+      removeNavUI();
+      unbindEvents();
+      // 恢复 body class
+      document.body.classList.remove('medium-zoom--opened');
+    }, 200);
+  }
+
+  function finishNavigation(targetIndex) {
+    currentIndex = targetIndex;
+    updateNavUI();
+    isTransitioning = false;
+  }
+
   function navigate(direction) {
     if (isTransitioning) return;
     const targetIndex = currentIndex + direction;
@@ -88,7 +119,12 @@
     const preload = new Image();
     preload.src = nextOriginal.currentSrc || nextOriginal.src;
 
+    const timeout = setTimeout(() => {
+      isTransitioning = false;
+    }, 5000);
+
     preload.onload = () => {
+      clearTimeout(timeout);
       const style = computeZoomedStyle(preload);
 
       const newZoomed = document.createElement('img');
@@ -123,17 +159,15 @@
       setTimeout(() => {
         if (currentZoomed) currentZoomed.remove();
 
-        newZoomed.addEventListener('click', () => {
-          zoom.close();
-          newZoomed.style.transition = 'opacity 150ms ease';
-          newZoomed.style.opacity = '0';
-          setTimeout(() => newZoomed.remove(), 150);
-        });
+        newZoomed.addEventListener('click', customClose);
 
-        currentIndex = targetIndex;
-        updateNavUI();
-        isTransitioning = false;
+        finishNavigation(targetIndex);
       }, 300);
+    };
+
+    preload.onerror = () => {
+      clearTimeout(timeout);
+      isTransitioning = false;
     };
   }
 
@@ -145,7 +179,7 @@
       e.preventDefault();
       navigate(1);
     } else if (e.key === 'Escape') {
-      zoom.close();
+      customClose();
     }
   }
 
@@ -220,11 +254,22 @@
       updateNavUI();
     });
 
+    // medium-zoom 的 close 只处理其自己打开的图片
     zoom.on('close', () => {
-      document.querySelectorAll('.gallery-slide-image').forEach(el => el.remove());
       removeNavUI();
       unbindEvents();
     });
+
+    // 拦截 overlay 点击：如果当前是我们创建的图片，用自定义关闭
+    document.addEventListener('click', (e) => {
+      const overlay = document.querySelector('.medium-zoom-overlay');
+      const slideImage = document.querySelector('.gallery-slide-image');
+      if (overlay && slideImage && e.target === overlay) {
+        e.stopPropagation();
+        e.preventDefault();
+        customClose();
+      }
+    }, true);
   }
 
   if (document.readyState === 'loading') {
