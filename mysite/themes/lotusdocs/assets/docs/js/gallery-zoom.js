@@ -92,7 +92,7 @@
       const style = computeZoomedStyle(preload);
 
       const newZoomed = document.createElement('img');
-      newZoomed.className = 'gallery-slide-image';
+      newZoomed.className = 'gallery-slide-image medium-zoom-image--opened';
       newZoomed.src = preload.src;
       newZoomed.style.cssText = `
         position: fixed;
