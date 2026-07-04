@@ -48,14 +48,14 @@ weight = 1
 </style>
 
 <div class="ph-wall">
+  <img src="/images/construction/groundbreaking/ceremony-07.jpg" alt="开工仪式">
   <img src="/images/construction/groundbreaking/ceremony-01.jpg" alt="开工仪式">
   <img src="/images/construction/groundbreaking/ceremony-02.jpg" alt="开工仪式">
   <img src="/images/construction/groundbreaking/ceremony-03.jpg" alt="开工仪式">
   <img src="/images/construction/groundbreaking/ceremony-04.jpg" alt="开工仪式">
   <img src="/images/construction/groundbreaking/ceremony-05.jpg" alt="开工仪式">
-  <img src="/images/construction/groundbreaking/ceremony-06.jpg" alt="开工仪式">
-  <img src="/images/construction/groundbreaking/ceremony-07.jpg" alt="开工仪式">
-  <img src="/images/construction/groundbreaking/ceremony-08.jpg" alt="开工仪式">
-  <img src="/images/construction/groundbreaking/ceremony-09.jpg" alt="开工仪式">
   <img src="/images/construction/groundbreaking/ceremony-10.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-09.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-08.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-06.jpg" alt="开工仪式">
 </div>
