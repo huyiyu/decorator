@@ -29,7 +29,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/decorator:${{ steps.vars.outputs.short_sha }}
+          tags: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/selfsave/decorator:${{ steps.vars.outputs.short_sha }}
 
       - name: Deploy to ECS via SSH
         uses: appleboy/ssh-action@v1.2.0
