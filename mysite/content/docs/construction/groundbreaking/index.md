@@ -9,7 +9,9 @@ weight = 1
 .ph-wall {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 6px;
+  aspect-ratio: 4 / 3;
 }
 .ph-wall img {
   width: 100%;
@@ -19,14 +21,29 @@ weight = 1
   border-radius: 4px;
   border: 1px solid #e9ecef;
 }
-.ph-wall img:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-.ph-wall img:nth-child(6) { grid-column: span 2; }
-.ph-wall img:nth-child(9) { grid-column: span 2; }
-.ph-wall img:nth-child(10) { grid-column: span 2; }
+/* 精确定位：交叉错落排版 */
+.ph-wall img:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+.ph-wall img:nth-child(2) { grid-column: 3 / 4; grid-row: 1 / 2; }
+.ph-wall img:nth-child(3) { grid-column: 4 / 5; grid-row: 1 / 2; }
+.ph-wall img:nth-child(4) { grid-column: 3 / 4; grid-row: 2 / 3; }
+.ph-wall img:nth-child(5) { grid-column: 4 / 5; grid-row: 2 / 3; }
+.ph-wall img:nth-child(6) { grid-column: 1 / 2; grid-row: 3 / 4; }
+.ph-wall img:nth-child(7) { grid-column: 2 / 4; grid-row: 3 / 4; }
+.ph-wall img:nth-child(8) { grid-column: 4 / 5; grid-row: 3 / 4; }
+.ph-wall img:nth-child(9) { grid-column: 1 / 3; grid-row: 4 / 5; }
+.ph-wall img:nth-child(10) { grid-column: 3 / 5; grid-row: 4 / 5; }
 @media (max-width: 768px) {
-  .ph-wall { grid-template-columns: repeat(2, 1fr); }
-  .ph-wall img:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-  .ph-wall img:nth-child(n) { grid-column: auto; }
+  .ph-wall { aspect-ratio: unset; grid-template-rows: auto auto auto auto; }
+  .ph-wall img:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .ph-wall img:nth-child(2) { grid-column: 3 / 4; grid-row: 1 / 2; }
+  .ph-wall img:nth-child(3) { grid-column: 4 / 5; grid-row: 1 / 2; }
+  .ph-wall img:nth-child(4) { grid-column: 3 / 4; grid-row: 2 / 3; }
+  .ph-wall img:nth-child(5) { grid-column: 4 / 5; grid-row: 2 / 3; }
+  .ph-wall img:nth-child(6) { grid-column: 1 / 2; grid-row: 3 / 4; }
+  .ph-wall img:nth-child(7) { grid-column: 2 / 4; grid-row: 3 / 4; }
+  .ph-wall img:nth-child(8) { grid-column: 4 / 5; grid-row: 3 / 4; }
+  .ph-wall img:nth-child(9) { grid-column: 1 / 3; grid-row: 4 / 5; }
+  .ph-wall img:nth-child(10) { grid-column: 3 / 5; grid-row: 4 / 5; }
 }
 </style>
 
