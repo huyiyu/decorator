@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -13,11 +13,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - name: Login to Docker Hub
+      - name: Login to Alibaba Cloud ACR
         uses: docker/login-action@v4
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Get short commit hash
         id: vars
@@ -30,3 +31,15 @@ jobs:
           push: true
           tags: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/decorator:${{ steps.vars.outputs.short_sha }}
 
+      - name: Deploy to ECS via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.ECS_HOST }}
+          username: ${{ secrets.ECS_USERNAME }}
+          key: ${{ secrets.ECS_SSH_KEY }}
+          script: |
+            cd /opt/decorator
+            export TAG=${{ steps.vars.outputs.short_sha }}
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
