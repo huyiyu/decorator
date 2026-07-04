@@ -31,6 +31,16 @@ jobs:
           push: true
           tags: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/selfsave/decorator:${{ steps.vars.outputs.short_sha }}
 
+      - name: Sync images to ECS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.ECS_HOST }}
+          username: ${{ secrets.ECS_USERNAME }}
+          key: ${{ secrets.ECS_SSH_KEY }}
+          source: "mysite/static/images/*"
+          target: "/opt/decorator/"
+          strip_components: 2
+
       - name: Deploy to ECS via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:

@@ -13,7 +13,7 @@
       - 80 → 301 HTTPS
       - 443 (HTTPS, 证书在代理上) → HTTP 转发
          ↓ HTTP
-      ECS 47.121.143.26:20080
+      ECS 110.41.13.73:20080（华为云）
       容器 Nginx (纯 HTTP, 无 SSL)
 ```
 
@@ -33,7 +33,7 @@
 **所需 Secrets：**
 - `ACR_USERNAME` — 阿里云 ACR 用户名
 - `ACR_PASSWORD` — 阿里云 ACR 密码
-- `ECS_HOST` = `47.121.143.26`
+- `ECS_HOST` = `110.41.13.73`（华为云）
 - `ECS_USERNAME` = `root`
 - `ECS_SSH_KEY` — SSH 私钥
 
