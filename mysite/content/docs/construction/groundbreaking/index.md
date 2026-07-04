@@ -6,32 +6,39 @@ weight = 0
 +++
 
 <style>
-.ceremony-grid {
+.ph-wall {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
-.ceremony-grid img {
+.ph-wall img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   cursor: zoom-in;
   border-radius: 4px;
   border: 1px solid #e9ecef;
 }
+.ph-wall img:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.ph-wall img:nth-child(6) { grid-column: span 2; }
+.ph-wall img:nth-child(9) { grid-column: span 2; }
+.ph-wall img:nth-child(10) { grid-column: span 2; }
 @media (max-width: 768px) {
-  .ceremony-grid { grid-template-columns: repeat(2, 1fr); }
+  .ph-wall { grid-template-columns: repeat(2, 1fr); }
+  .ph-wall img:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .ph-wall img:nth-child(n) { grid-column: auto; }
 }
 </style>
 
-<div class="ceremony-grid">
-  <img src="/images/construction/groundbreaking/ceremony-01.jpg" alt="开工仪式 1">
-  <img src="/images/construction/groundbreaking/ceremony-02.jpg" alt="开工仪式 2">
-  <img src="/images/construction/groundbreaking/ceremony-03.jpg" alt="开工仪式 3">
-  <img src="/images/construction/groundbreaking/ceremony-04.jpg" alt="开工仪式 4">
-  <img src="/images/construction/groundbreaking/ceremony-05.jpg" alt="开工仪式 5">
-  <img src="/images/construction/groundbreaking/ceremony-06.jpg" alt="开工仪式 6">
-  <img src="/images/construction/groundbreaking/ceremony-07.jpg" alt="开工仪式 7">
-  <img src="/images/construction/groundbreaking/ceremony-08.jpg" alt="开工仪式 8">
-  <img src="/images/construction/groundbreaking/ceremony-09.jpg" alt="开工仪式 9">
-  <img src="/images/construction/groundbreaking/ceremony-10.jpg" alt="开工仪式 10">
+<div class="ph-wall">
+  <img src="/images/construction/groundbreaking/ceremony-01.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-02.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-03.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-04.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-05.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-06.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-07.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-08.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-09.jpg" alt="开工仪式">
+  <img src="/images/construction/groundbreaking/ceremony-10.jpg" alt="开工仪式">
 </div>
