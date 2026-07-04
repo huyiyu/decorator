@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.ECS_SSH_KEY }}
           script: |
             cd /opt/decorator
-            export TAG=${{ steps.vars.outputs.short_sha }}
+            sed -i "s|image: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/selfsave/decorator:.*|image: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/selfsave/decorator:${{ steps.vars.outputs.short_sha }}|" docker-compose.yml
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f
