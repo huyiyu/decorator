@@ -1,6 +1,7 @@
 +++
 title = "费用"
 description = "装修全屋预算汇总与费用追踪"
+icon = "payments"
 weight = 2
 +++
 

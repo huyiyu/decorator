@@ -1,6 +1,7 @@
 +++
 title = "沟通"
 description = "头脑风暴、与设计师、工长、供应商之间的沟通要点与备忘。"
+icon = "forum"
 weight = 4
 +++
 
