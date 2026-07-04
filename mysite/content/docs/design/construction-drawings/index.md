@@ -11,7 +11,9 @@ weight = 3
 
 全套图纸由 AutoCAD 2024 出图，日期 2026/05。
 
-> 📄 [下载完整施工图 PDF（36页）](/pdf/build.pdf)
+<embed src="/pdf/build.pdf#toolbar=1&navpanes=1" type="application/pdf" width="100%" height="800px" style="border: 1px solid #e9ecef; border-radius: 6px;">
+
+> 提示：PDF 共 36 页，可使用上方工具栏翻页查看。[直接下载→](/pdf/build.pdf)
 
 ---
 
@@ -125,7 +127,7 @@ weight = 3
 
 ## 封窗方案
 
-> 📄 [下载封窗方案 PDF](/pdf/window.pdf)
+<embed src="/pdf/window.pdf#toolbar=1&navpanes=1" type="application/pdf" width="100%" height="600px" style="border: 1px solid #e9ecef; border-radius: 6px;">
 
 封窗采用**下悬窗**设计，主窗正面尺寸 7520mm × 2450mm，含固定玻璃与开窗分区：
 - **左侧窗（生活阳台）**：860mm 开窗 + 固定玻璃
