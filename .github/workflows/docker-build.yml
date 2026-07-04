@@ -28,4 +28,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: huyiyu/decorator:${{ steps.vars.outputs.short_sha }}
+          tags: crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/decorator:${{ steps.vars.outputs.short_sha }}
+
