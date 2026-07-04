@@ -22,16 +22,15 @@ RUN apk add --no-cache apache2-utils
 # 复制编译产物到 Nginx 默认站点目录
 COPY --from=builder /src/public /usr/share/nginx/html
 
-# 复制自定义站点配置与启动脚本
+# 复制自定义站点配置
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
-# 环境变量：Basic Auth 用户名与密码
-ENV BASIC_AUTH_USER=""
-ENV BASIC_AUTH_PASSWORD=""
+# 预生成 Basic Auth 密码文件
+RUN htpasswd -cb /etc/nginx/.htpasswd decorator decorator2024
+
+# 隐藏 Nginx 版本号
+RUN sed -i 's/server_tokens on/server_tokens off/' /etc/nginx/nginx.conf || true
 
 EXPOSE 80
 
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
