@@ -21,7 +21,7 @@ weight = 2
 现场查看了厨房/餐厅 SU 模型，确认了岛台 + 橱柜的整体布局方向。
 
 <video controls style="max-width: 100%; border-radius: 6px; border: 1px solid #e9ecef;">
-  <source src="kitchen-model.mp4" type="video/mp4">
+  <source src="/video/kitchen-model.mp4" type="video/mp4">
 </video>
 
 ---

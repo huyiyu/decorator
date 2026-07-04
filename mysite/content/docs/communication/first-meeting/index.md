@@ -19,7 +19,7 @@ weight = 1
 
 ## 设计图
 
-<img src="a.png" alt="全屋设计方案" style="max-width: 100%; border-radius: 6px; border: 1px solid #e9ecef;">
+<img src="/images/communication/first-meeting.png" alt="全屋设计方案" style="max-width: 100%; border-radius: 6px; border: 1px solid #e9ecef;">
 
 ---
 

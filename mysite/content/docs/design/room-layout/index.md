@@ -9,7 +9,7 @@ weight = 0
 
 本套方案为 **第二版平面布置图**（2025.04），整体户型呈东西向展开，建筑面积约 140㎡ 左右。原始结构为 **四室两厅三卫**，经第一次沟通后，设计师将最左侧靠近儿童房的卫生间调整为 **储藏间**，最终格局为 **四室两厅两卫 + 储藏间**，在保留主要居住功能的前提下，通过联动门、定制柜体与空间借位，提升了客餐厅的通透感与全屋收纳效率。
 
-<img src="plan.png" alt="平面布置图" style="max-width: 100%; border-radius: 6px; border: 1px solid #e9ecef;">
+<img src="/images/plan.png" alt="平面布置图" style="max-width: 100%; border-radius: 6px; border: 1px solid #e9ecef;">
 
 > 注：具体尺寸以实际现场为准。图中标注的总开间约 12360 mm，总进深约 14450 mm。
 

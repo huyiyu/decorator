@@ -13,6 +13,9 @@ mysite/public/
 mysite/resources/
 mysite/assets/jsconfig.json
 
+# Test build output
+mysite/public_test/
+
 # Node
 node_modules/
 npm-debug.log*
