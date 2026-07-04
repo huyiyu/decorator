@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- ACR 镜像地址: `crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/decorator`
+- ACR 镜像地址: `crpi-i0f04sdy87xuuifl.cn-hangzhou.personal.cr.aliyuncs.com/selfsave/decorator`
 - ECS IP: `47.121.143.26`
 - ECS 部署目录: `/opt/decorator/`
 - 域名: `decorator.huyiyu.com`
